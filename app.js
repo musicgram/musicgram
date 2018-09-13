@@ -4,9 +4,10 @@ require('dotenv').config();
 const cors = require('cors');
 const port = process.env.PORT;
 const mongoose   = require('mongoose');
-const users = require('./routes/users')
 
-// const route = require('./routes');
+const routes = require('./routes/index')
+
+const route = require('./routes');
 // const quotes = require('./routes/quotesRoute');
 
 
@@ -15,9 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-// app.use('/',route);
+app.use('/',route);
 // app.use('/quotes',quotes);
-app.use('/users',users)
+
 
 //Mongoose
 // const url = 'mongodb://localhost:27017/e-commerce';
