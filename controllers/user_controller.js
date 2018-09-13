@@ -71,5 +71,36 @@ module.exports = {
         .catch(function(err){
             message: err.message
         })
+    },
+
+    verifyUser : function(req,res) {
+        if (req.headers['authorization']) {
+            let tokens = req.headers['authorization'].split(' ')      
+            if (tokens[0] == 'Bearer') {          
+              jwt.verify(tokens[1], process.env.JWT_SECRET, (err, decoded) => {
+                if (!err && decoded) {
+                  req.user = decoded                                                   
+                  User.findById(req.user.id)
+                  .then(user=>{
+                    if(user == null){
+                      res.status(400).json({ "error": "You are not authorized to access this API" })    
+                    }
+                    else{
+                      res.status(200).json({
+                          message : 'success'
+                      })
+                    }
+                  })
+                  .catch(err =>{
+                    res.status(400).json({ "error": "You are not authorized to access this API" })  
+                  })                        
+                } else {            
+                  res.status(400).json({ "error": "You are not authorized to access this API" })
+                }
+              })
+            }
+          } else {
+            res.status(400).json({ "error": "You are not authorized to access this API" })
+          }
     }
 }
