@@ -7,7 +7,8 @@ module.exports = {
     register : function(req,res) {
         User.create({
             email : req.body.email,
-            password : req.body.password
+            password : req.body.password,
+            name : req.body.name
         })
         .then(function(){
             res.status(201).json({
@@ -36,7 +37,7 @@ module.exports = {
                 let check_pass = bcrypt.compareSync(req.body.password,user.password)
                 if (check_pass) {
                     jwt.sign({
-                        email : user.email
+                        id : user._id
                     },process.env.JWT_SECRET,function(err,token){
                         if (err) {
                             console.log(err)
