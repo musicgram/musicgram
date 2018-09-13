@@ -4,6 +4,7 @@ require('dotenv').config();
 const cors = require('cors');
 const port = process.env.PORT;
 const mongoose   = require('mongoose');
+const users = require('./routes/users')
 
 // const route = require('./routes');
 // const quotes = require('./routes/quotesRoute');
@@ -16,14 +17,14 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use('/',route);
 // app.use('/quotes',quotes);
-
+app.use('/users',users)
 
 //Mongoose
 // const url = 'mongodb://localhost:27017/e-commerce';
 const mlabUser = process.env.MLAB_USER;
 const mlabPass = process.env.MLAB_PASS;
 
-const url = `mongodb://${mlabUser}:${mlabPass}@ds253922.mlab.com:53922/live-code`;
+const url = `mongodb://${mlabUser}:${mlabPass}@ds155252.mlab.com:55252/musicgram`;
 mongoose.connect(url,{ useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
