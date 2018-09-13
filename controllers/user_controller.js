@@ -59,5 +59,17 @@ module.exports = {
                 message : err.message
             })
         })
+    },
+
+    getUsers : function(req,res) {
+        User.find({})
+        .then(function(users){
+            res.status(200).json({
+                users : users
+            })
+        })
+        .catch(function(err){
+            message: err.message
+        })
     }
 }
