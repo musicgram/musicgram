@@ -8,6 +8,6 @@ routes.post('/upload',
   upload.sendUploadToGCS,
   controller.music.upload)
 
-// routes.post('/musics',auth,controller.music.create)
+routes.post('/musics',auth,controller.music.create)
 
   module.exports = routes
