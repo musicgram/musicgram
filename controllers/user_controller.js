@@ -91,6 +91,7 @@ module.exports = {
         })
     },
 
+
     verifyUser : function(req,res) {
         if (req.headers['authorization']) {
             let tokens = req.headers['authorization'].split(' ')
@@ -121,5 +122,4 @@ module.exports = {
             res.status(400).json({ "error": "You are not authorized to access this API" })
           }
     }
-
 }
