@@ -28,7 +28,7 @@ module.exports = {
         })
         .then(function(user){
             if (!user) {
-                res.status(200).json({
+                res.status(400).json({
                     message : 'wrong email or password'
                 })
             } else {
@@ -43,12 +43,13 @@ module.exports = {
                             console.log(err)
                         } else {
                             res.status(200).json({
-                                token : token
+                                token : token,
+                                user_id : user._id
                             })
                         }
                     })
                 } else {
-                    res.status(200).json({
+                    res.status(400).json({
                         message : 'wrong email or password'
                     })
                 }
