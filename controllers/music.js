@@ -2,7 +2,7 @@ const Music = require('../models/musicModel');
 
 module.exports = {
   findAll: (req, res) => {
-    Music.find()
+    Music.find().populate('user')
     .then(musics => {
       res.status(200).json({
         message: 'success get all musics',
@@ -18,6 +18,8 @@ module.exports = {
 
   findByUser: (req, res) => {
     let id = req.user.id;
+
+    console.log('<============================' + id);
 
     Music.find({user: id})
     .then(musics => {
