@@ -16,6 +16,20 @@ module.exports = {
     })
   },
 
+  findByUser: (req, res) => {
+    let id = req.user.id;
+
+    Music.find({user: id})
+    .then(musics => {
+      console.log(musics);
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: err.message
+      });
+    })
+  },
+
   upload: (req,res) => {
     res.status(200).json({
       message: 'Your file is successfully uploaded',
