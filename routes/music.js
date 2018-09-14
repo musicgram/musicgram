@@ -5,11 +5,14 @@ const authentication = require('../middlewares/index');
 
 routes.get('/user', authentication, controller.music.findByUser);
 routes.get('/', controller.music.findAll);
+
 routes.post(
   '/upload',
-  upload.multer.single('music'), 
+  upload.multer.single('image'), 
   upload.sendUploadToGCS,
   controller.music.upload
 );
+
+routes.post('/musics',authentication,controller.music.create)
 
 module.exports = routes;

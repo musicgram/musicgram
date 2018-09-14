@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
 const authenticate = (req, res, next) => { 
+  
     let tokens = req.headers['authorization'].split(' ')      
     if (tokens[0] == 'Bearer') {          
       jwt.verify(tokens[1], process.env.JWT_SECRET, (err, decoded) => {
