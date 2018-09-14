@@ -76,12 +76,10 @@ module.exports = {
     addMusic : function(req,res){
         User.findOneAndUpdate({
             _id : req.user.id
-        },{            
-            $push : {music : req.body.musicId }            
+        },{
+            $push : {music : req.body.musicId }
         })
         .then(updatedUser =>{
-            
-            
             res.status(200).json({
                 msg : 'success add new music'
             })
