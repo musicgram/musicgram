@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
-const authenticate = (req, res, next) => {    
-    
-  if (req.headers['authorization']) {
+const authenticate = (req, res, next) => { 
     let tokens = req.headers['authorization'].split(' ')      
     if (tokens[0] == 'Bearer') {          
       jwt.verify(tokens[1], process.env.JWT_SECRET, (err, decoded) => {
@@ -25,7 +23,6 @@ const authenticate = (req, res, next) => {
           res.status(400).json({ "error": "You are not authorized to access this API" })
         }
       })
-    }
   } else {
     res.status(400).json({ "error": "You are not authorized to access this API" })
   }
