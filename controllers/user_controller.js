@@ -105,6 +105,8 @@ module.exports = {
     },
 
     addMusic : function(req,res){
+        console.log(req.body),
+        console.log('======>',req.user.id)
         User.findOneAndUpdate({
             _id : req.user.id
         },{
