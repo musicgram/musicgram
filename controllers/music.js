@@ -2,6 +2,23 @@ const Music = require('../models/musicModel');
 const User = require('../models/userModel');
 
 module.exports = {
+  remove: (req, res) => {
+    let id = req.params.id;
+
+    Music.findOneAndRemove({_id: id})
+    .then(oldMusic => {
+      res.status(200).json({
+        message: 'success remove music',
+        id: oldMusic._id
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: err.message
+      });
+    })
+  },
+
   findAll: (req, res) => {
     Music.find().populate('user')
     .then(musics => {
@@ -20,8 +37,6 @@ module.exports = {
   findByUser: (req, res) => {
     let id = req.user.id;
 
-    console.log('<============================' + id);
-
     Music.find({user: id})
     .then(musics => {
       console.log(musics);
@@ -34,7 +49,6 @@ module.exports = {
   },
 
   upload: (req,res) => {
-    console.log('masuk=====<');
     
     res.status(200).json({
       message: 'Your file is successfully uploaded',

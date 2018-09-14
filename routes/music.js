@@ -5,6 +5,7 @@ const authentication = require('../middlewares/index');
 
 routes.get('/user', authentication, controller.music.findByUser);
 routes.get('/', controller.music.findAll);
+routes.delete('/:id', authentication, controller.music.remove);
 
 routes.post(
   '/upload',
