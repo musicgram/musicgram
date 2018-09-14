@@ -55,7 +55,8 @@ module.exports = {
               res.status(200).json({
                 musicId : newMusic._id,
                 newMusic ,
-                name : user.name
+                name : user.name,
+                id : user._id
               })
         })
         .catch(err =>{
