@@ -73,17 +73,36 @@ module.exports = {
         })
     },
 
+    addMusic : function(req,res){
+        User.findOneAndUpdate({
+            _id : req.user.id
+        },{
+            $push : {music : req.body.musicId }
+        })
+        .then(updatedUser =>{
+
+
+            res.status(200).json({
+                msg : 'success add new music'
+            })
+        })
+        .catch(err =>{
+            res.status(400).json(err)
+        })
+    },
+
+
     verifyUser : function(req,res) {
         if (req.headers['authorization']) {
-            let tokens = req.headers['authorization'].split(' ')      
-            if (tokens[0] == 'Bearer') {          
+            let tokens = req.headers['authorization'].split(' ')
+            if (tokens[0] == 'Bearer') {
               jwt.verify(tokens[1], process.env.JWT_SECRET, (err, decoded) => {
                 if (!err && decoded) {
-                  req.user = decoded                                                   
+                  req.user = decoded
                   User.findById(req.user.id)
                   .then(user=>{
                     if(user == null){
-                      res.status(400).json({ "error": "You are not authorized to access this API" })    
+                      res.status(400).json({ "error": "You are not authorized to access this API" })
                     }
                     else{
                       res.status(200).json({
@@ -92,9 +111,9 @@ module.exports = {
                     }
                   })
                   .catch(err =>{
-                    res.status(400).json({ "error": "You are not authorized to access this API" })  
-                  })                        
-                } else {            
+                    res.status(400).json({ "error": "You are not authorized to access this API" })
+                  })
+                } else {
                   res.status(400).json({ "error": "You are not authorized to access this API" })
                 }
               })
